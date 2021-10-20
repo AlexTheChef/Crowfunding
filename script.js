@@ -31,6 +31,7 @@ bookmark.addEventListener('click', () => {
 });
 
 //Main buttons open Pop-up
+const body = document.querySelector('body')
 const mainButtons = document.querySelectorAll("main button");
 const popUp = document.querySelector(".pop-up");
 const headPopUp = document.querySelector(".head-pop-up");
@@ -43,6 +44,7 @@ mainButtons.forEach((button) => {
 });
 
 function openPopUp(option) {
+  body.style.overflow = "hidden"
   popUp.style.top = "0";
   popUp.style.opacity = "1";
   headPopUp.classList.add("active");
@@ -63,6 +65,7 @@ closePopUp.addEventListener("click", popUpClose);
 const popUpOptions = document.querySelector(".pop-up-options");
 
 function popUpClose() {
+  body.style.overflow = "visible"
   popUp.style.opacity = "0";
   headPopUp.classList.remove("active");
   popUpOptions.classList.remove("active");
