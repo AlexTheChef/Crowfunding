@@ -337,8 +337,8 @@ section {
 .pop-up {
     position: fixed;
     top: -1000px;
-    left: 0;
-    height: 100%;
+    left:-15px;
+    height: 100vh;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.6);
     border: none;
@@ -350,7 +350,7 @@ section {
 }
 
 .pop-up-container {
-    margin-left: 27%;
+    margin: auto;
     background-color: white;
     border-radius: 8px;
     width: 100%;

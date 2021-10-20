@@ -39,6 +39,9 @@ const headPopUp = document.querySelector(".head-pop-up");
 mainButtons.forEach((button) => {
   button.addEventListener("click", () => {
     let option = button.getAttribute("data-option");
+    if (optionRemainings[option] == 1) {
+      button.disabled = "true"
+    }
     openPopUp(option);
   });
 });
@@ -59,10 +62,10 @@ function openPopUp(option) {
 const closePopUp = document.getElementById("close-pop-up");
 const end = document.getElementById("end");
 const congratsPopUp = document.querySelector(".congrats-pop");
+const popUpOptions = document.querySelector(".pop-up-options");
 
 end.addEventListener("click", popUpClose);
 closePopUp.addEventListener("click", popUpClose);
-const popUpOptions = document.querySelector(".pop-up-options");
 
 function popUpClose() {
   body.style.overflow = "visible"
@@ -89,13 +92,9 @@ const fundingMeter = document.getElementById("funding-meter");
 const leftOne = document.querySelectorAll('[data-left="1"]');
 const leftTwo = document.querySelectorAll('[data-left="2"]');
 
-let totalAchieved = 89914;
-let totalBackers = 5007;
-let optionRemainings = [0, 101, 64];
-
 function finish() {
-  bank.textContent = `$${(totalAchieved / 1000).toFixed(3)}`;
-  backers.textContent = `${(totalBackers / 1000).toFixed(3)}`;
+  bank.textContent = `$${totalAchieved}`;
+  backers.textContent = `${totalBackers}`;
   fundingMeter.value = totalAchieved;
   leftOne.forEach((option) => {
     option.innerHTML = `${optionRemainings[1]}<span> left</span>`;
@@ -108,16 +107,38 @@ function finish() {
 //Making bid functionalities and counting options and money
 const optionButtons = document.querySelectorAll(".pop-up-options button");
 
+let totalAchieved = 89914;
+let totalBackers = 5007;
+let optionRemainings = [0, 101, 1];
+
 optionButtons.forEach((button) => {
   button.addEventListener("click", () => {
     let option = parseFloat(button.getAttribute("data-option"));
     let input = document.querySelector('input[data-option="' + option + '"]');
     let deposit = parseFloat(input.value);
+    if (input.value < 1) {
+      return
+    }
     totalAchieved += deposit;
     totalBackers += 1;
     optionRemainings[option] -= 1;
+    if (optionRemainings[option] == 0) {
+      button.disabled = "true"
+    }
     finish();
     displayCongratsPop();
+  });
+});
+
+//after no more rewards making whole element disabled
+const paymentMain = document.querySelectorAll('.payment-option-main')
+
+mainButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    let value = button.getAttribute("data-option");
+    if (optionRemainings[value] == 1) {
+      button.parentNode.parentNode.classList.add('disabled')
+    }
   });
 });
 
