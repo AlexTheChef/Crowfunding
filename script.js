@@ -104,7 +104,7 @@ function finish() {
   });
 }
 
-//Making bid functionalities and counting options and money
+//Making bid functionalities and counting remaining options and money
 const optionButtons = document.querySelectorAll(".pop-up-options button");
 
 let totalAchieved = 89914;
